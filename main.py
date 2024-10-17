@@ -6,7 +6,6 @@ from page2 import Page2
 import subprocess
 
 
-
 def ensure_adb_permissions(adb_path):
     # 检查 ADB 是否具有可执行权限
     if os.access(adb_path, os.X_OK):
@@ -36,7 +35,7 @@ class MainPage(ft.Container):
             spacing=0,
             expand=True,
         )
-
+        self.content.controls[2].visible = False
 
     def build_content(self, index):
         # match index:
@@ -46,6 +45,7 @@ class MainPage(ft.Container):
         #     case 1:
         #         self.content.controls[1] = Page2()
         #         self.update()
+        # 匹配索引并隐藏页面
         match index:
             case 0:
                 self.content.controls[1].visible = True

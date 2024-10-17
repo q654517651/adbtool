@@ -1,8 +1,8 @@
 import flet as ft
 
-from button import Btn3
+# from button import Btn3
 from config import color
-from custom_controls import BtnOutline, BtnBack, ToolAnimation
+from custom_controls import BtnOutline, BtnBack, ToolAnimation, Btn3
 from historical_version_page import ProjectList
 from progect_switch import ProjectSwitch
 from download import download_apk

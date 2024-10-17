@@ -6,8 +6,7 @@ url = 'https://apphost.micoworld.net/apps/24/plats/48'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows'}
 
 
-def get_list(url):
-    apk_list = []
+def get_tree(url):
     req = urllib.request.Request(url, headers=headers)
     context = ssl.create_default_context()
     context.check_hostname = False
@@ -23,7 +22,13 @@ def get_list(url):
     # 从本地加载html对象
     # parser = etree.HTMLParser(encoding='utf-8')
     # tree = etree.parse('48.html', parser=parser)
+    return tree
 
+
+def get_list(url):
+    apk_list = []
+
+    tree = get_tree(url)
     div_list = tree.xpath("//div[@class = 'col-md-12 cell']")
 
     for div in div_list:
@@ -35,5 +40,26 @@ def get_list(url):
 
     return apk_list
 
+
+def get_next_link(url):
+    tree = get_tree(url)
+
+    div_list = tree.xpath("//div[@class = 'col-md-12 cell']")
+    next_link = div_list[0].xpath(".//a/@href")[0]
+    next_link = f"https://apphost.micoworld.net{next_link}"
+    # print(next_link)
+    return next_link
+
+
+def get_next_content(url):
+    url = get_next_link(url)
+    tree = get_tree(url)
+    info = tree.xpath("//div[@class='features']//p[@class='info']/text()")
+    result = '\n'.join(filter(None, map(str.strip, info)))
+    print(result)
+
+
+get_next_content(url)
+# get_change_content(url)
 # a = get_list(url)
 # print(a)

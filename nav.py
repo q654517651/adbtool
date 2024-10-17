@@ -108,11 +108,4 @@ class Nav(ft.Container):
         )
         return self.nav
 
-# def main(page: ft.Page):
-#     page.title = 'UI工具箱'
-#     page.padding = 0
-#
-#     page.add(Nav())
-#
-#
-# ft.app(target=main, assets_dir='../assets/')
+
