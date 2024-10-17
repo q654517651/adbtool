@@ -1,11 +1,12 @@
 import flet as ft
-
+import concurrent.futures
 # from button import Btn3
 from config import color
 from custom_controls import BtnOutline, BtnBack, ToolAnimation, Btn3
 from historical_version_page import ProjectList
 from progect_switch import ProjectSwitch
 from download import download_apk
+from get_html_content import get_next_content
 
 
 # 返回导航栏类 这个类接受一个切换页面的函数build_content
@@ -53,21 +54,41 @@ class InstallPage(ft.Container):
         super().__init__()
         self.expand = True
         self.tool_animation = ToolAnimation()
-        self.content = ft.Row([ft.Column([
-            # ft.Image(src=f'images/page/install_animation.png', width=240, height=240),
-            self.tool_animation,
-            ft.Text(value='text', color=color['light']['text1'], size=16, font_family='微软雅黑'),
-            Btn3('一键安装最新',
-                 lambda e: download_apk(src, self.update_download_state, self.tool_animation.change_animation)),
-        ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            alignment=ft.MainAxisAlignment.CENTER,
-            expand=True,
-        )], expand=True)
+
+        # 获取app的更新描述
+        # self.project_info = get_next_content(src)
+
+        self.content = ft.Row(
+            [ft.Column([
+                # ft.Image(src=f'images/page/install_animation.png', width=240, height=240),
+                self.tool_animation,
+                ft.Text(value='self.project_info', color=color['light']['text1'], size=16, font_family='微软雅黑'),
+                # ft.Text(value=self.project_info, color=color['light']['text1'], size=16, font_family='微软雅黑'),
+                Btn3('一键安装最新',
+                     lambda e: download_apk(src, self.update_download_state, self.tool_animation.change_animation)),
+            ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                alignment=ft.MainAxisAlignment.CENTER,
+                expand=True,
+            )], expand=True)
+
+        # self.project_info = self.run(src)
 
     def update_download_state(self, text):
         # print(self.content.controls[0].controls[1].value)
         self.content.controls[0].controls[1].value = text
+        self.content.controls[0].controls[1].update()
+
+    def run(self, src):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(get_next_content, src)
+            future.add_done_callback(self.handle_result)
+
+    def handle_result(self, future):
+        result = future.result()
+        print(result)
+        # print(f"文本内容{self.content.controls[0].controls[1].value}")
+        self.content.controls[0].controls[1].value = result
         self.content.controls[0].controls[1].update()
 
 
@@ -120,7 +141,6 @@ class InstallMenu(ft.Container):
         match index:
             case 0:
                 self.current_src = 'https://apphost.micoworld.net/apps/4/plats/3'
-                # self.current_src = 'https://download.appmeta.cn/apps/66bb40dff94548480460330b/install?download_token=8ece1cd0bd67332ad6262e25e2d5973f'
                 self.current_name = 'Mico'
                 self.current_project_key = 0
             case 1:

@@ -63,6 +63,7 @@ def main(page: ft.Page):
     page.padding = 0
     page.spacing = 0
     page.add(MainPage(page))
+    MainPage.InstallMenu.
 
 
 ft.app(target=main, assets_dir='assets/')

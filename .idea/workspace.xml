@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="05c2d8de-6324-4568-b304-8b09bbb86911" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/download.py" beforeDir="false" afterPath="$PROJECT_DIR$/download.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_lise_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_html_content.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/historical_version_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/historical_version_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nav.py" beforeDir="false" afterPath="$PROJECT_DIR$/nav.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_html_content.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_html_content.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page1_install.py" beforeDir="false" afterPath="$PROJECT_DIR$/page1_install.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +33,7 @@
     "Python.get_html_content.executor": "Run",
     "Python.main.executor": "Run",
     "Python.nav.executor": "Run",
+    "Python.page1_install.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -65,16 +62,28 @@
       <updated>1729098835738</updated>
       <workItem from="1729098836786" duration="24000" />
       <workItem from="1729099454385" duration="1039000" />
-      <workItem from="1729145534200" duration="8615000" />
+      <workItem from="1729145534200" duration="13906000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/adbtool$main.coverage" NAME="main 覆盖结果" MODIFIED="1729151911371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/adbtool$main.coverage" NAME="main 覆盖结果" MODIFIED="1729164501311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/adbtool$nav.coverage" NAME="nav 覆盖结果" MODIFIED="1729150937940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/adbtool$get_html_content.coverage" NAME="get_html_content 覆盖结果" MODIFIED="1729159259421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/adbtool$page1_install.coverage" NAME="page1_install 覆盖结果" MODIFIED="1729161497814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/adbtool$get_html_content.coverage" NAME="get_html_content 覆盖结果" MODIFIED="1729160953909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

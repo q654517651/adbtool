@@ -2,7 +2,7 @@ import urllib.request
 import ssl
 from lxml import etree
 
-url = 'https://apphost.micoworld.net/apps/24/plats/48'
+url = 'https://apphost.micoworld.net/apps/4/plats/3'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows'}
 
 
@@ -56,10 +56,13 @@ def get_next_content(url):
     tree = get_tree(url)
     info = tree.xpath("//div[@class='features']//p[@class='info']/text()")
     result = '\n'.join(filter(None, map(str.strip, info)))
-    print(result)
+    # print(type(result))
+    return result
 
 
-get_next_content(url)
+a = get_next_link(url)
+print(a)
+
 # get_change_content(url)
 # a = get_list(url)
 # print(a)
