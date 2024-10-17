@@ -1,10 +1,10 @@
 import os.path
-
 import flet as ft
 from nav import Nav
 from page1_install import InstallMenu
 from page2 import Page2
 import subprocess
+
 
 
 def ensure_adb_permissions(adb_path):
@@ -27,19 +27,33 @@ class MainPage(ft.Container):
         self.expand = True
         self.content = ft.Row(
             [
-                Nav(self.build_content, page), InstallMenu(),
+                Nav(self.build_content, page),
+
+                InstallMenu(), Page2()
+
+                # InstallMenu(),
             ],
             spacing=0,
             expand=True,
         )
 
+
     def build_content(self, index):
+        # match index:
+        #     case 0:
+        #         self.content.controls[1] = InstallMenu()
+        #         self.update()
+        #     case 1:
+        #         self.content.controls[1] = Page2()
+        #         self.update()
         match index:
             case 0:
-                self.content.controls[1] = InstallMenu()
+                self.content.controls[1].visible = True
+                self.content.controls[2].visible = False
                 self.update()
             case 1:
-                self.content.controls[1] = Page2()
+                self.content.controls[1].visible = False
+                self.content.controls[2].visible = True
                 self.update()
 
 
@@ -48,7 +62,6 @@ def main(page: ft.Page):
     page.title = 'UI工具箱'
     page.padding = 0
     page.spacing = 0
-
     page.add(MainPage(page))
 
 
