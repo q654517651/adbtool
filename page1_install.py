@@ -62,8 +62,7 @@ class InstallPage(ft.Container):
             [ft.Column([
                 # ft.Image(src=f'images/page/install_animation.png', width=240, height=240),
                 self.tool_animation,
-                ft.Text(value='self.project_info', color=color['light']['text1'], size=16, font_family='微软雅黑'),
-                # ft.Text(value=self.project_info, color=color['light']['text1'], size=16, font_family='微软雅黑'),
+                ft.Text(value='安装app', color=color['light']['text1'], size=16, font_family='微软雅黑'),
                 Btn3('一键安装最新',
                      lambda e: download_apk(src, self.update_download_state, self.tool_animation.change_animation)),
             ],
@@ -79,17 +78,17 @@ class InstallPage(ft.Container):
         self.content.controls[0].controls[1].value = text
         self.content.controls[0].controls[1].update()
 
-    def run(self, src):
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(get_next_content, src)
-            future.add_done_callback(self.handle_result)
+    # def run(self, src):
+    #     with concurrent.futures.ThreadPoolExecutor() as executor:
+    #         future = executor.submit(get_next_content, src)
+    #         future.add_done_callback(self.handle_result)
 
-    def handle_result(self, future):
-        result = future.result()
-        print(result)
-        # print(f"文本内容{self.content.controls[0].controls[1].value}")
-        self.content.controls[0].controls[1].value = result
-        self.content.controls[0].controls[1].update()
+    # def handle_result(self, future):
+    #     result = future.result()
+    #     print(result)
+    #     # print(f"文本内容{self.content.controls[0].controls[1].value}")
+    #     self.content.controls[0].controls[1].value = result
+    #     self.content.controls[0].controls[1].update()
 
 
 # 最终的页面类
