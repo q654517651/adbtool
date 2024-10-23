@@ -60,8 +60,8 @@ def get_next_content(url):
     return result
 
 
-a = get_next_link(url)
-print(a)
+# a = get_next_link(url)
+# print(a)
 
 # get_change_content(url)
 # a = get_list(url)

@@ -1,5 +1,5 @@
 import flet as ft
-import concurrent.futures
+import threading
 # from button import Btn3
 from config import color
 from custom_controls import BtnOutline, BtnBack, ToolAnimation, Btn3
@@ -56,7 +56,8 @@ class InstallPage(ft.Container):
         self.tool_animation = ToolAnimation()
 
         # 获取app的更新描述
-        # self.project_info = get_next_content(src)
+        # 使用线程在实例化完成后调用方法
+        # threading.Timer(1, self.next_content, args=(src,)).start()
 
         self.content = ft.Row(
             [ft.Column([
@@ -78,17 +79,10 @@ class InstallPage(ft.Container):
         self.content.controls[0].controls[1].value = text
         self.content.controls[0].controls[1].update()
 
-    # def run(self, src):
-    #     with concurrent.futures.ThreadPoolExecutor() as executor:
-    #         future = executor.submit(get_next_content, src)
-    #         future.add_done_callback(self.handle_result)
-
-    # def handle_result(self, future):
-    #     result = future.result()
-    #     print(result)
-    #     # print(f"文本内容{self.content.controls[0].controls[1].value}")
-    #     self.content.controls[0].controls[1].value = result
-    #     self.content.controls[0].controls[1].update()
+    def next_content(self, src):
+        result = get_next_content(src)
+        self.content.controls[0].controls[1].value = result
+        self.content.controls[0].controls[1].update()
 
 
 # 最终的页面类

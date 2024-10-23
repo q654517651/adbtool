@@ -60,7 +60,6 @@ class Nav(ft.Container):
         self.nav = None
         self.content = self.side_nav()
         self.width = 128
-        # self.height = page.height
         self.alignment = ft.alignment.center
         self.padding = ft.padding.only(top=16)
         self.bgcolor = color['light']['bgc2']
@@ -76,10 +75,11 @@ class Nav(ft.Container):
             key = e.control.data
             self.select_index = key
             for index, cell in enumerate(self.nav.content.controls):
-                cell.is_active = (index == key)
-                cell.content.controls[0].src = cell.set_icon_src()
-                cell.content.controls[1].color = cell.set_text_color()
-                cell.bgcolor = cell.set_bg_color()
+                if cell.data:
+                    cell.is_active = (index == key)
+                    cell.content.controls[0].src = cell.set_icon_src()
+                    cell.content.controls[1].color = cell.set_text_color()
+                    cell.bgcolor = cell.set_bg_color()
             self.build_content(self.select_index)
             self.update()
 
@@ -103,9 +103,14 @@ class Nav(ft.Container):
                         on_click=on_click,
 
                     ),
+                    ft.Column([
+                        ft.Container(width=20, height=20, bgcolor='#000000',margin=16)
+                    ],
+                        expand=True,
+                        alignment=ft.MainAxisAlignment.END,
+                    )
+
                 ]
             )
         )
         return self.nav
-
-
