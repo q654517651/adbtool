@@ -1,12 +1,14 @@
 import flet as ft
 import custom_controls
 from adb_shell import AdbShell
+from dialog import Notification
 
 
 class Page2(ft.Container):
-    def __init__(self):
+    def __init__(self, page):
         super().__init__()
-        self.adb = AdbShell(0)
+        self.page = page
+        self.adb = AdbShell()
         self.expand = True
         self.bgcolor = '#F7F9FC'
         self.padding = ft.padding.symmetric(horizontal=16, vertical=8)
@@ -34,6 +36,11 @@ class Page2(ft.Container):
                 self.row1
             ]
         )
+
+    def layout_on(self):
+        self.adb.layout_boundaries_on()
+        notification = Notification(self.page, "这是一个通知消息", duration=3)
+        notification.show()
 
 # def main(page: ft.Page):
 #     page.add(Page2())

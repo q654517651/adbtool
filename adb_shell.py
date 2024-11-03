@@ -1,8 +1,8 @@
 import os
 import subprocess
+import platform
+# from dialog import Notification
 
-# win_path = os.path.join('', 'adb_environment', 'win', 'adb.exe')
-# mac_path = os.path.join('', 'adb_environment', 'mac_os', 'adb')
 screenshot_path = os.path.join('', 'screenshot', 'screenshot.png')
 
 
@@ -15,13 +15,21 @@ def image_to_clipboard(image_path):
     ])
 
 
+def check_platform():
+    system_name = platform.system()
+    if system_name == "Darwin":
+        return 0
+    elif system_name == "Windows":
+        return 1
+
+
 class AdbShell:
-    def __init__(self, platform_id):
-        self.platform_id = platform_id
+    def __init__(self):
+        self.platform_id = check_platform()
         self.win_path = os.path.join('./', 'adb_environment', 'win', 'adb.exe')
         self.mac_path = os.path.join('./', 'adb_environment', 'mac', 'adb')
         # 0==macos  1==win
-        self.path = self.win_path if platform_id == 1 else self.mac_path
+        self.path = self.win_path if self.platform_id == 1 else self.mac_path
 
     # 在使用adb shell setprop debug.layout true启用了显示布局边界之后
     # 我们必须戳戳SystemProperties以查看显示布局边界QS块所做的更改：
@@ -30,26 +38,26 @@ class AdbShell:
         output = subprocess.run([self.path, 'shell', 'setprop debug.layout true'],
                                 capture_output=True,
                                 text=True)
-        print(output.stdout)
+        # print(output.stdout)
         output = subprocess.run([self.path, 'shell', 'service call activity 1599295570'], capture_output=True,
                                 text=True)
-        print(output.stdout)
+        # print(output.stdout)
 
     def layout_boundaries_off(self):
         output = subprocess.run([self.path, 'shell', 'setprop debug.layout false'],
                                 capture_output=True,
                                 text=True)
-        print(output.stdout)
+        # print(output.stdout)
         output = subprocess.run([self.path, 'shell', 'service call activity 1599295570'],
                                 capture_output=True,
                                 text=True)
-        print(output.stdout)
+        # print(output.stdout)
 
     def check_devices(self):
         output = subprocess.run([self.path, 'devices'], capture_output=True, text=True)
-        print(output)
-        print(output.stdout)
-        # return output
+        # print(output)
+        # print(output.stdout)
+        return output
 
     def apk_install(self):
         output = subprocess.run([self.path, 'install', 'apk/app.apk'],

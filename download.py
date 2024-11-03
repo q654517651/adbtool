@@ -5,7 +5,7 @@ from adb_shell import AdbShell
 
 
 def download_apk(url, update_download_state, change_animation):
-    adb_shell = AdbShell(platform_id=0)
+    adb_shell = AdbShell()
     print(f'收到项目地址{url}')
     output_path = './apk/app.apk'
 

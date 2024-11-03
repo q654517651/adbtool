@@ -1,5 +1,9 @@
 import flet as ft
 from button import app_button
+import platform
+from adb_shell import AdbShell
+
+adb_shell = AdbShell()
 
 
 def tool_cell(img_src, text, btn1, btn2):
@@ -34,3 +38,9 @@ def tools(page, visible):
         visible=visible,
     )
     return page
+
+
+def is_adb_device_connected():
+    result = adb_shell.check_devices()
+    devices = result.stdout.strip().split('\n')[1:]
+    return any(device.strip() for device in devices)

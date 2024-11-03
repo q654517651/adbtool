@@ -1,5 +1,8 @@
 import flet as ft
 from config import color, icon_src, select_icon_src, nav_text
+from tools import is_adb_device_connected
+import time
+import threading
 
 
 class NavCell(ft.Container):
@@ -64,6 +67,7 @@ class Nav(ft.Container):
         self.padding = ft.padding.only(top=16)
         self.bgcolor = color['light']['bgc2']
         self.build_content = build_content
+        self.start_thread()
 
     def build_content(self, index):
         # 调用传入的回调函数
@@ -104,13 +108,49 @@ class Nav(ft.Container):
 
                     ),
                     ft.Column([
-                        ft.Container(width=20, height=20, bgcolor='#000000',margin=16)
+                        ft.Container(
+                            content=ft.Row([
+                                ft.Image(src="images/page/not_link.svg"),
+                                ft.Text(value='未连接', size=12, color="#787F8D"),
+                            ], spacing=4, ),
+                            width=80,
+                            height=32,
+                            bgcolor='#ffffff',
+                            border_radius=12,
+                            margin=ft.margin.only(bottom=16),
+                            padding=ft.padding.symmetric(horizontal=8),
+
+                        )
                     ],
                         expand=True,
                         alignment=ft.MainAxisAlignment.END,
-                    )
+                    ),
 
                 ]
             )
         )
         return self.nav
+
+    def monitor_adb_connection(self):
+        connected = False
+        while True:
+            if is_adb_device_connected():
+                if not connected:
+                    connected = True
+                    self.content.content.controls[-1].controls[0].content.controls[0].src = "images/page/link.svg"
+                    self.content.content.controls[-1].controls[0].content.controls[1].value = "已连接"
+                    self.content.content.controls[-1].controls[0].content.controls[1].color = "#43C238"
+                    self.update()
+            else:
+                if connected:
+                    connected = False
+                    self.content.content.controls[-1].controls[0].content.controls[0].src = "images/page/not_link.svg"
+                    self.content.content.controls[-1].controls[0].content.controls[1].value = "未连接"
+                    self.content.content.controls[-1].controls[0].content.controls[1].color = "#787F8D"
+                    self.update()
+            time.sleep(5)  # 每5秒检查一次连接状态
+
+    def start_thread(self):
+        monitor_thread = threading.Thread(target=self.monitor_adb_connection)
+        monitor_thread.daemon = True  # 将线程设为守护线程 当程序退出是结束进程
+        monitor_thread.start()
