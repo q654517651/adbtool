@@ -1,6 +1,8 @@
 import os
 import subprocess
 import platform
+from PIL import Image
+import io
 # from dialog import Notification
 
 screenshot_path = os.path.join('', 'screenshot', 'screenshot.png')
@@ -9,10 +11,26 @@ screenshot_path = os.path.join('', 'screenshot', 'screenshot.png')
 def image_to_clipboard(image_path):
     file_url = f"file://{os.path.abspath(image_path)}"
     # 使用 macOS 的 "osascript" 命令将 PNG 图片复制到剪切板
-    subprocess.run([
-        "osascript", "-e",
-        f'set the clipboard to (read (POSIX file "{file_url}") as «class PNGf»)'
-    ])
+    if check_platform() == 0:
+        subprocess.run([
+            "osascript", "-e",
+            f'set the clipboard to (read (POSIX file "{file_url}") as «class PNGf»)'
+        ])
+    elif check_platform() == 1:
+        import win32clipboard as clipboard
+        # 打开图片并将其转换为BMP格式
+        image = Image.open(image_path)
+        output = io.BytesIO()
+        image.convert('RGB').save(output, 'BMP')
+
+        # 去掉BMP文件的前14个字节（DIB header不需要）
+        bmp_data = output.getvalue()[14:]
+
+        # 打开剪切板并将图片数据放入其中
+        clipboard.OpenClipboard()
+        clipboard.EmptyClipboard()
+        clipboard.SetClipboardData(clipboard.CF_DIB, bmp_data)
+        clipboard.CloseClipboard()
 
 
 def check_platform():
