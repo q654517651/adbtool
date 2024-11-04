@@ -3,6 +3,7 @@ from config import color, icon_src, select_icon_src, nav_text
 from tools import is_adb_device_connected
 import time
 import threading
+from dialog import Notification
 
 
 class NavCell(ft.Container):
@@ -59,6 +60,7 @@ class NavCell(ft.Container):
 class Nav(ft.Container):
     def __init__(self, build_content, page):
         super().__init__()
+        self.page = page
         self.select_index = 0
         self.nav = None
         self.content = self.side_nav()
@@ -68,6 +70,7 @@ class Nav(ft.Container):
         self.bgcolor = color['light']['bgc2']
         self.build_content = build_content
         self.start_thread()
+
 
     def build_content(self, index):
         # 调用传入的回调函数
@@ -141,6 +144,8 @@ class Nav(ft.Container):
                     self.content.content.controls[-1].controls[0].content.controls[1].value = "已连接"
                     self.content.content.controls[-1].controls[0].content.controls[1].color = "#43C238"
                     self.update()
+                    notification = Notification(self.page, "设备已连接", duration=3)
+                    notification.show()
             else:
                 if connected:
                     connected = False
@@ -148,6 +153,8 @@ class Nav(ft.Container):
                     self.content.content.controls[-1].controls[0].content.controls[1].value = "未连接"
                     self.content.content.controls[-1].controls[0].content.controls[1].color = "#787F8D"
                     self.update()
+                    notification = Notification(self.page, "设备已断开", duration=3)
+                    notification.show()
             time.sleep(5)  # 每5秒检查一次连接状态
 
     def start_thread(self):
